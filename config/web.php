@@ -9,19 +9,31 @@ $config = [
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
+    ],
+    'modules' => [
+        'admin' => [
+            'class' => 'hqt\admin\Module',
+        ],
     ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => '',
+            'cookieValidationKey' => 'cookieValidationKey',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+                'text/json' => 'yii\web\JsonParser',
+            ],
+        ],
+        'response' => [
+            'format' => 'json',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -43,14 +55,24 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
+    ],
+    'as access' => [
+        'class' => 'hqt\admin\components\AccessControl',
+        'allowActions' => [
+            'gii/*',
+            'debug/*',
+            'site/*',
+            'user/login',
+        ],
     ],
     'params' => $params,
 ];
