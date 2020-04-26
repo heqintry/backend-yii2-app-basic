@@ -1,4 +1,5 @@
 > Base on https://github.com/yiisoft/yii2-app-basic
+> Used with https://github.com/heqintry/backend-vue-admin-template
 
 * `git clone https://github.com/heqintry/bakcend-yii2-app-basic`
 * `composer install`
